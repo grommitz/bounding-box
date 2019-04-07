@@ -1,0 +1,19 @@
+{
+  "name": "bounding-box",
+  "version": "1.0.0",
+  "description": "web service for drawing bounding boxes onto images and saving the result to S3",
+  "main": "main.js",
+  "dependencies": {
+    "aws-sdk": "^2.437.0",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10",
+    "request": "^2.88.0",
+    "sharp": "^0.22.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "martin charlesworth",
+  "license": "ISC"
+}
