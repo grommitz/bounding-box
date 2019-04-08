@@ -70,7 +70,7 @@ exports.handler = (event, context, callback) => {
               const hash = String(crypto.createHmac('sha256', 'abcdefg').update(String(Math.random())).digest('hex')) + '.jpg';
                       
               const s3FileLocation = s3Folder + '/' + hash;
-              const s3FileURL = 'https://s3.amazonaws.com/' + s3Bucket +'/'+ s3FileLocation 
+              const s3FileURL = 'https://' + s3Bucket + '.s3.amazonaws.com/' + s3FileLocation 
               
               // Now we create a new image buffer combining the original image buffer with the buffer we generated
               // with our SVG bounding box rectangles
