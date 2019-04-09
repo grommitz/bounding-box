@@ -60,7 +60,7 @@ exports.handler = (event, context, callback) => {
             
               // The SVG string we have crafted above needs to be converted into a Buffer object
               // so that we can use Sharp to overlay it with our image buffer
-              const svgElementBuffer = new Buffer(svgElement);
+              const svgElementBuffer = Buffer.from(svgElement);
               
               const s3Bucket = process.env.S3_BUCKET; // Create an environment variable in Lambda called S3_BUCKET 
               const s3Folder = 'rendered' // We will use this folder to store the rendered images
@@ -72,16 +72,20 @@ exports.handler = (event, context, callback) => {
               const s3FileLocation = s3Folder + '/' + hash;
               const s3FileURL = 'https://' + s3Bucket + '.s3.amazonaws.com/' + s3FileLocation 
               
+              console.log("trying to push generated image to " + s3FileURL + "...");
+
               // Now we create a new image buffer combining the original image buffer with the buffer we generated
               // with our SVG bounding box rectangles
-              image.overlayWith(svgElementBuffer, {top:0, left:0}).toBuffer().then(updatedBuffer => S3.putObject({
-                Body: updatedBuffer,
-                Bucket: s3Bucket,
-                Key: s3FileLocation,
-                ContentType:'image/jpeg',
-                ACL: 'public-read'
-              }).promise()).then(
-                () => callback(null, {
+              image.overlayWith(svgElementBuffer, {top:0, left:0}).toBuffer()
+                .then(updatedBuffer => S3.putObject({
+                  Body: updatedBuffer,
+                  Bucket: s3Bucket,
+                  Key: s3FileLocation,
+                  ContentType:'image/jpeg',
+                  ACL: 'public-read'
+                }).promise())
+                  .then(
+                    () => callback(null, {
                     // The new file has been successfully created
                     // Return a HTTP 302 code that will automatically redirect the browser to the rendered image
                     // Note you can also make this return a 301 which will permanently redirect the browser after

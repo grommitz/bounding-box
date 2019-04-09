@@ -1,0 +1,11 @@
+version: '2.1'
+
+services:
+  bounding-box:
+    image: bounding-box
+    container_name: bbox
+    environment:
+      - S3_BUCKET=grommitz-bbox-images
+    ports:
+      - 4242:4242
+
