@@ -4,7 +4,7 @@
   "description": "web service for drawing bounding boxes onto images and saving the result to S3",
   "main": "main.js",
   "dependencies": {
-    "aws-sdk": "^2.437.0",
+    "aws-sdk": "^2.814.0",
     "express": "^4.17.3",
     "nodemon": "^1.18.10",
     "request": "^2.88.0",
